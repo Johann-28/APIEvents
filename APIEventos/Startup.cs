@@ -30,6 +30,7 @@ namespace APIEventos
             }
           );
 
+            services.AddScoped<EventService>();
 
 
         }
