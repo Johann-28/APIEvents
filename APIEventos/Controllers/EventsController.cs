@@ -31,14 +31,23 @@ namespace APIEventos.Controllers
         [HttpGet("get/{id}")]
         public async Task<ActionResult<Events>> GetById(int id)
         {
-            var evento = await eventService.GetDtoById(id);
+            var evento = await eventService.GetById(id);
 
             if (evento is null)
-                return BadRequest("No existe puñetassss");
+                return BadRequest("El evento no existe");
             return evento;
 
         }
 
+        //Añade un parametro a la base de datos
+        [HttpPost("create")]
+        public async Task<IActionResult> Create(Events evento)
+        {
+
+            var newEvent = await eventService.Create(evento);
+           
+            return Ok();
+        }
 
     }
 }
