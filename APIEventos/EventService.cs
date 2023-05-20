@@ -29,5 +29,32 @@ namespace APIEventos
             return newEvent;
            
         }
+
+        public async Task Update(int id, Events evento)
+        {
+            var existingEvent = await GetById(id);
+
+            if(existingEvent is not null)
+            {
+                existingEvent.Name = evento.Name;
+                existingEvent.Descripcion = evento.Descripcion; 
+                existingEvent.Date = evento.Date;
+                existingEvent.Ubicacion = evento.Ubicacion;
+                existingEvent.Capacidad = evento.Capacidad;
+
+                await dbcontext.SaveChangesAsync();
+            }
+        }
+
+        public async Task Delete(int id)
+        {
+            var eventToDelete = await GetById(id);
+
+            if(eventToDelete is not null)
+            {
+                dbcontext.Events.Remove(eventToDelete);
+                await dbcontext.SaveChangesAsync();
+            }
+        }
     }
 }

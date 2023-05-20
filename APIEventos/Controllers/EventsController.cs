@@ -49,5 +49,47 @@ namespace APIEventos.Controllers
             return Ok();
         }
 
+        //Actualiza un registro dado un evento y un id
+        [HttpPut("udpate/{id}")]
+        public async Task<ActionResult> Update( int id , Events evento )
+        {
+            if (evento.Id != id)
+            {
+                return BadRequest(new { message = $"El ID({id}) de la URL no coincide con el ID({evento.Id}) del cuerpo de la solicitud."});
+            }
+
+            var eventToUpdate = await eventService.GetById(id);
+
+            if(eventToUpdate is not null)
+            {
+                await eventService.Update(id, evento);
+                return Accepted( new { message = $"Registro actualizado con exito"});
+            }
+
+            dbContext.Update(evento);
+            await dbContext.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+       
+            var eventToDelete = await eventService.GetById(id);
+
+            if (eventToDelete is not null)
+            {
+                await eventService.Delete(id);
+                return Accepted(new { message = $"Registro borrado con exito" });
+            }
+            else
+            {
+                return BadRequest("No existe el evento");
+            }
+
+        }
+
+   
+
     }
 }
