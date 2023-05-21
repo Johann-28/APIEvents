@@ -32,6 +32,11 @@ namespace APIEventos.Controllers
                 .ToListAsync();
         }
 
+        
+        // Obtiene una lista de eventos en formato DTO (Data Transfer Object).
+        // Permite mostrar una lista de todos los eventos creados, proporcionando información básica como el nombre, fecha y ubicación.
+        // Esto permite a los usuarios explorar los eventos y decidir a cuál desean asistir.
+   
         [HttpGet("getdto")]
         public async Task<IEnumerable<EventDTO>> GetDTOs()
         {
@@ -50,15 +55,23 @@ namespace APIEventos.Controllers
 
         }
 
-        //Añade un parametro a la base de datos
+
+        // Crea un nuevo evento.
+        // Permite a los usuarios crear un evento especificando el nombre, descripción, fecha, hora, ubicación y capacidad máxima de asistentes.
+        // Parámetros:
+        // - evento: Objeto que contiene los detalles del evento a crear.
+        // Retorna:
+        // - Respuesta HTTP indicando si se creó el evento exitosamente.
         [HttpPost("create")]
         public async Task<IActionResult> Create(Events evento)
         {
+            // Añade un evento a la base de datos
 
             var newEvent = await eventService.Create(evento);
-           
+
             return Ok();
         }
+
 
         //Actualiza un registro dado un evento y un id
         [HttpPut("udpate/{id}")]

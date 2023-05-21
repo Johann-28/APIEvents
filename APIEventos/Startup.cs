@@ -35,6 +35,7 @@ namespace APIEventos
             services.AddScoped<EventService>();
             services.AddScoped<UserService>();
             services.AddScoped<AsistantsService>();
+            services.AddScoped<CommentServices>();
 
         }
 
