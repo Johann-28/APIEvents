@@ -9,5 +9,7 @@
 
         public int EventId { get; set; }
         public Events Event { get; set; }
+
+       
     }
 }

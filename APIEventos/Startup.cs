@@ -1,4 +1,6 @@
 ﻿using System.Text.Json.Serialization;
+using APIEventos.Controllers;
+using APIEventos.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace APIEventos
@@ -31,7 +33,8 @@ namespace APIEventos
           );
 
             services.AddScoped<EventService>();
-
+            services.AddScoped<UserService>();
+            services.AddScoped<AsistantsService>();
 
         }
 

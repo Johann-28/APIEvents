@@ -12,7 +12,7 @@ namespace APIEventos
 
         public DbSet<Events> Events { get; set; }
         public DbSet<Users> Users { get; set; }
-
         public DbSet<Asistants> Asistants { get; set; }
+        public DbSet<Comments> Comments { get; set; }
     }
 }

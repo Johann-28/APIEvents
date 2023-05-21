@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using APIEventos.Entidades;
 using Microsoft.EntityFrameworkCore;
+using APIEventos.DTOs;
 
 namespace APIEventos.Controllers
 {
@@ -20,11 +21,21 @@ namespace APIEventos.Controllers
         }
 
 
-        //Regresa todos los registros de la tabla eventos
+        //Regresa todos los registros de la tabla eventos, NECESITARAS AUTORIZACION
         [HttpGet("getall")]
         public async Task<ActionResult<List<Events>>> GetAll()
         {
-            return await dbContext.Events.ToListAsync();
+
+            //la funcion Include hace un Join en base al identificador propio y la tabla Asistants
+            return await dbContext.Events
+                .Include(a => a.Assistans)
+                .ToListAsync();
+        }
+
+        [HttpGet("getdto")]
+        public async Task<IEnumerable<EventDTO>> GetDTOs()
+        {
+            return await eventService.GetDTO();
         }
 
         //Regresa el evento con la id solicitada

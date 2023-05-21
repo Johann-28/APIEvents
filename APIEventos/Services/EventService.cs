@@ -1,4 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
+using APIEventos.DTOs;
 using APIEventos.Entidades;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,16 @@ namespace APIEventos
             this.dbcontext = dbContext;
         }
 
+        public async Task<IEnumerable<EventDTO>> GetDTO()
+        {
+            return await dbcontext.Events.Select(a => new EventDTO
+            {
+                Name = a.Name,
+                Descripcion = a.Descripcion,
+                Date = a.Date,
+                Ubicacion = a.Ubicacion
+            }).ToListAsync();
+        }
 
         public async Task<Events?> GetById(int id)
         {

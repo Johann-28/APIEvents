@@ -9,5 +9,6 @@
         public string Password { get; set; }
 
         public ICollection<Asistants> Asistants { get; set; }
+        public ICollection<Comments> Comments { get; set; }
     }
 }
